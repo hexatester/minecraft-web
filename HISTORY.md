@@ -1,5 +1,9 @@
 # History
 
+## 0.1.2
+
+- initial client
+
 ## 0.1.1
 
 - add dependencies
