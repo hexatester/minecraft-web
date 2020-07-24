@@ -4,15 +4,16 @@
 const express = require('express')
 const socketIO = require('socket.io')
 const socketAuth = require('socketio-auth')
+const serveStatic = require('serve-static')
+const path = require('path')
 
 class MinecraftWeb {
-  constructor (password = process.env.PASSWORD || String(new Date())) {
+  constructor (PASSWORD = process.env.PASSWORD || String(new Date())) {
     const PORT = process.env.PORT || 3000
-    const PASSWORD = process.env.PASSWORD || String(new Date())
-    const INDEX = '/index.html'
+    const STATIC = path.join(__dirname, path.join('client', 'dist'))
 
     const server = express()
-      .use((req, res) => res.sendFile(INDEX, { root: __dirname }))
+      .use(serveStatic(STATIC))
       .listen(PORT, () =>
         console.log(`Listening on ${PORT}, with password ${PASSWORD}`)
       )
