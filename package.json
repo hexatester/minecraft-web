@@ -1,7 +1,7 @@
 {
-  "name": "prismarine-template",
-  "version": "1.0.0",
-  "description": "A template repository to make it easy to create new prismarine repo",
+  "name": "minecraft-web",
+  "version": "0.1.0",
+  "description": "Minecraft client controlled using web(socket) technology. :D ",
   "main": "index.js",
   "scripts": {
     "test": "jest --verbose",
@@ -12,18 +12,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PrismarineJS/prismarine-template.git"
+    "url": "git+https://github.com/hexatester/minecraft-web.git"
   },
   "keywords": [
-    "prismarine",
-    "template"
+    "minecraft",
+    "websocket",
+    "chat",
+    "bot"
   ],
-  "author": "Romain Beaumont",
+  "author": "Habib Rohman",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/PrismarineJS/prismarine-template/issues"
+    "url": "https://github.com/hexatester/minecraft-web/issues"
   },
-  "homepage": "https://github.com/PrismarineJS/prismarine-template#readme",
+  "homepage": "https://github.com/hexatester/minecraft-web#readme",
   "devDependencies": {
     "jest": "^26.1.0",
     "require-self": "^0.2.3",
