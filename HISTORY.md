@@ -1,5 +1,9 @@
-## History
+# History
 
-### 0.1.0
+## 0.1.1
 
-* updates from template
+- add dependencies
+
+## 0.1.0
+
+- updates from template
