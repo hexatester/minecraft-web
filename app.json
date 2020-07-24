@@ -1,0 +1,32 @@
+{
+    "name": "MinecraftWeb",
+    "description": "Minecraft client controlled using web(socket) technology. :D ",
+    "repository": "https://github.com/hexatester/minecraft-web",
+    "keywords": [
+        "node",
+        "minecraft",
+        "minecraft-client",
+        "websocket",
+        "web",
+        "bot"
+    ],
+    "env": {
+        "PASSWORD": {
+            "description": "Password to get access from the client",
+            "value": "YOUR PASSWORD HERE"
+        }
+    },
+    "formation": {
+        "worker": {
+            "quantity": 1,
+            "type": "worker",
+            "command": "node heroku.js"
+        },
+        "web": {
+            "quantity": 0,
+            "type": "web",
+            "command": "node heroku.js"
+        }
+    },
+    "website": "https://github.com/hexatester/minecraft-web"
+}
