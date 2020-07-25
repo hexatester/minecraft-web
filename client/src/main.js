@@ -9,9 +9,13 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
 const host = process.env.HOST | 'localhost'
 const port = host === 'localhost' ? ':3000' : ''
-const io = SocketIO(`http://${host}${port}`)
+const socket = SocketIO(`http://${host}${port}`)
 
 Vue.config.productionTip = false
+
+socket.on('unauthorized', function (err) {
+  console.log('There was an error with the authentication:', err.message)
+})
 
 // Install BootstrapVue
 Vue.use(BootstrapVue)
@@ -21,7 +25,7 @@ Vue.use(IconsPlugin)
 Vue.use(
   new VueSocketIO({
     debug: true,
-    connection: io
+    connection: socket
   })
 )
 
