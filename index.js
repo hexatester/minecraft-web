@@ -4,22 +4,18 @@
 const express = require('express')
 const socketIO = require('socket.io')
 const socketAuth = require('socketio-auth')
-const serveStatic = require('serve-static')
 const path = require('path')
 const MinecraftClient = require('./lib/minecraft-client')
+const { createServer } = require('http')
 
 class MinecraftWeb {
   constructor (PASSWORD = process.env.PASSWORD || String(new Date())) {
     const PORT = process.env.PORT || 3000
     const STATIC = path.join(__dirname, path.join('client', 'dist'))
 
-    const server = express()
-      .use(serveStatic(STATIC))
-      .listen(PORT, () =>
-        console.log(`Listening on ${PORT}, with password ${PASSWORD}`)
-      )
-
-    const io = socketIO(server)
+    const server = express().use(express.static(STATIC))
+    const http = createServer(server)
+    const io = socketIO(http)
 
     socketAuth(io, {
       authenticate: function (socket, data, callback) {
@@ -37,7 +33,11 @@ class MinecraftWeb {
         clients: this.minecraft.keys()
       })
     })
+    this.server = server
+    this.http = http
     this.io = io
+    this.password = PASSWORD
+    this.http.listen(PORT, () => console.log(`Listening on ${PORT}`))
   }
 
   create (botOptions = {}) {
@@ -52,6 +52,10 @@ class MinecraftWeb {
       this.io.emit('failconnect', username)
     }
     this.io.emit('connected', username)
+  }
+
+  stop (cb) {
+    this.http.close(cb)
   }
 }
 

@@ -7,11 +7,11 @@
     "minecraft-web": "./cli.js"
   },
   "scripts": {
-    "test": "jest --verbose",
+    "test": "jest test/ --verbose",
     "pretest": "npm run lint && require-self",
     "prepare": "npm install require-self && require-self",
-    "lint": "standard",
-    "fix": "standard --fix"
+    "lint": "standard *.js lib/**/*.js",
+    "fix": "standard *.js lib/**/*.js --fix"
   },
   "repository": {
     "type": "git",
