@@ -6,6 +6,7 @@ const socketIO = require('socket.io')
 const socketAuth = require('socketio-auth')
 const serveStatic = require('serve-static')
 const path = require('path')
+const MinecraftClient = require('./lib/minecraft-client')
 
 class MinecraftWeb {
   constructor (PASSWORD = process.env.PASSWORD || String(new Date())) {
@@ -27,10 +28,30 @@ class MinecraftWeb {
       }
     })
 
+    this.minecraft = {}
     io.on('connection', socket => {
       console.log('Client connected')
+      socket.on('create', this.create)
       socket.on('disconnect', () => console.log('Client disconnected'))
+      socket.emit('clients', {
+        clients: this.minecraft.keys()
+      })
     })
+    this.io = io
+  }
+
+  create (botOptions = {}) {
+    const username = botOptions.username || 'Player'
+    try {
+      const minecraft = MinecraftClient({
+        bot: botOptions,
+        io: this.io.of(`/${username}`)
+      })
+      this.minecraft[username] = minecraft
+    } catch (error) {
+      this.io.emit('failconnect', username)
+    }
+    this.io.emit('connected', username)
   }
 }
 
